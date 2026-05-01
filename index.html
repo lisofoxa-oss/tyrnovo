@@ -1,1 +1,1377 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="theme-color" content="#722F37">
+<title>Велико Търново — пътеводител за Алиса</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
+  :root {
+    --burgundy: #722F37;
+    --burgundy-deep: #4A1F25;
+    --terracotta: #C8794A;
+    --cream: #F5E6D3;
+    --gold: #D4A574;
+    --gold-deep: #B8893E;
+    --dark: #2B1810;
+    --forest: #4A5D3A;
+    --paper: #FBF3E4;
+    --shadow: rgba(43, 24, 16, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+    background:
+      radial-gradient(ellipse at top left, rgba(212, 165, 116, 0.18), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(114, 47, 55, 0.10), transparent 55%),
+      linear-gradient(180deg, #FBF3E4 0%, #F5E6D3 50%, #EDD9BA 100%);
+    background-attachment: fixed;
+    color: var(--dark);
+    min-height: 100vh;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ===== Декоративна текстура ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.08) 0%, transparent 2%),
+      radial-gradient(circle at 70% 60%, rgba(114, 47, 55, 0.06) 0%, transparent 2%),
+      radial-gradient(circle at 40% 80%, rgba(74, 93, 58, 0.05) 0%, transparent 2%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 18px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    padding: 50px 18px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-sky {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(212, 165, 116, 0.4), transparent 70%),
+      linear-gradient(180deg, rgba(114, 47, 55, 0.05) 0%, transparent 60%);
+    z-index: -1;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    opacity: 0.7;
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 9vw, 52px);
+    line-height: 1.05;
+    font-weight: normal;
+    color: var(--burgundy-deep);
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 0 rgba(212, 165, 116, 0.3);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--dark);
+    opacity: 0.75;
+    max-width: 460px;
+    margin: 0 auto 28px;
+    font-style: italic;
+  }
+
+  /* SVG крепост */
+  .fortress-svg {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 18px auto 0;
+    display: block;
+    filter: drop-shadow(0 8px 16px rgba(74, 31, 37, 0.2));
+  }
+
+  /* ===== Декоративен орнамент ===== */
+  .ornament {
+    text-align: center;
+    margin: 28px auto;
+    color: var(--gold-deep);
+    font-size: 22px;
+    letter-spacing: 14px;
+    user-select: none;
+  }
+
+  .ornament::before {
+    content: '✦ · ✦ · ✦';
+  }
+
+  /* ===== Лента за Алиса ===== */
+  .alisa-banner {
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--terracotta) 100%);
+    color: var(--paper);
+    padding: 20px 22px;
+    border-radius: 14px;
+    margin: 8px auto 36px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(114, 47, 55, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .alisa-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: rotate(20deg);
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%) rotate(20deg); }
+    50% { transform: translateX(300%) rotate(20deg); }
+  }
+
+  .alisa-banner-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 6px;
+    position: relative;
+  }
+
+  .alisa-banner-text {
+    font-size: 17px;
+    font-style: italic;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .alisa-banner-text strong {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  /* ===== Навигация ===== */
+  .nav-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 0 auto 50px;
+  }
+
+  .nav-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--burgundy-deep);
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-card:active {
+    background: var(--burgundy);
+    color: var(--paper);
+    transform: scale(0.97);
+  }
+
+  .nav-card .nav-icon {
+    font-size: 22px;
+    margin-bottom: 2px;
+  }
+
+  /* ===== Секции ===== */
+  section {
+    padding: 30px 0;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-align: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: clamp(26px, 7vw, 36px);
+    color: var(--burgundy-deep);
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: normal;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+  }
+
+  h2 em {
+    color: var(--terracotta);
+    font-style: italic;
+  }
+
+  h3 {
+    font-size: 19px;
+    color: var(--burgundy);
+    margin-bottom: 8px;
+    font-weight: normal;
+  }
+
+  p {
+    margin-bottom: 14px;
+    font-size: 16px;
+  }
+
+  /* ===== История - Timeline ===== */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin: 30px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), var(--terracotta), var(--burgundy));
+    border-radius: 2px;
+  }
+
+  .tl-item {
+    position: relative;
+    padding-bottom: 22px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 3px solid var(--burgundy);
+    box-shadow: 0 0 0 3px var(--paper);
+  }
+
+  .tl-year {
+    font-size: 13px;
+    color: var(--terracotta);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .tl-title {
+    font-size: 16px;
+    color: var(--burgundy-deep);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .tl-desc {
+    font-size: 14px;
+    color: var(--dark);
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
+  /* ===== Трите хълма ===== */
+  .hills {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .hill {
+    background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(245, 230, 211, 0.6) 100%);
+    border-left: 4px solid var(--terracotta);
+    padding: 18px 18px 18px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  .hill h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .hill-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--burgundy);
+    color: var(--paper);
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .hill p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  /* ===== Карти на забележителности ===== */
+  .sights {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .sight {
+    background: var(--paper);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px var(--shadow);
+    border: 1px solid rgba(212, 165, 116, 0.4);
+  }
+
+  .sight-img {
+    height: 140px;
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--terracotta) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sight-img svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sight-content {
+    padding: 18px 18px 20px;
+  }
+
+  .sight-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--burgundy-deep);
+    padding: 3px 9px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  .sight-title {
+    font-size: 21px;
+    color: var(--burgundy-deep);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .sight-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--dark);
+  }
+
+  .sight-tip {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(212, 165, 116, 0.18);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--burgundy-deep);
+    font-style: italic;
+  }
+
+  .sight-tip strong {
+    font-style: normal;
+    color: var(--terracotta);
+  }
+
+  /* ===== Легенди ===== */
+  .legend {
+    background: linear-gradient(135deg, rgba(74, 31, 37, 0.95) 0%, rgba(114, 47, 55, 0.92) 100%);
+    color: var(--cream);
+    padding: 24px 22px;
+    border-radius: 14px;
+    margin: 16px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .legend::before {
+    content: '✦';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 30px;
+    color: var(--gold);
+    opacity: 0.3;
+  }
+
+  .legend h3 {
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .legend p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    opacity: 0.95;
+  }
+
+  /* ===== Самоводска чаршия ===== */
+  .crafts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .craft {
+    background: var(--paper);
+    padding: 14px 12px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px dashed var(--gold);
+    font-size: 13px;
+  }
+
+  .craft-icon {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+
+  .craft-name {
+    color: var(--burgundy);
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  /* ===== Practical tips ===== */
+  .tips {
+    background: rgba(74, 93, 58, 0.08);
+    border: 1px solid rgba(74, 93, 58, 0.25);
+    border-radius: 14px;
+    padding: 20px 18px;
+    margin: 14px 0;
+  }
+
+  .tips-title {
+    color: var(--forest);
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tips ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tips li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 14.5px;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(74, 93, 58, 0.2);
+  }
+
+  .tips li:last-child { border-bottom: none; }
+
+  .tips li::before {
+    content: '◆';
+    position: absolute;
+    left: 4px;
+    top: 9px;
+    color: var(--forest);
+    font-size: 10px;
+  }
+
+  /* ===== ДЮНЕР секция ===== */
+  .doner-section {
+    background: linear-gradient(135deg, #FFE9D6 0%, #FFD4A8 100%);
+    margin: 40px -18px 30px;
+    padding: 40px 18px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doner-section::before,
+  .doner-section::after {
+    content: '🌯';
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .doner-section::before {
+    top: -20px;
+    left: -20px;
+    transform: rotate(-15deg);
+  }
+
+  .doner-section::after {
+    bottom: -20px;
+    right: -20px;
+    transform: rotate(20deg);
+  }
+
+  .doner-title {
+    text-align: center;
+    color: var(--burgundy-deep);
+    font-size: clamp(28px, 8vw, 38px);
+    margin-bottom: 4px;
+    line-height: 1;
+    position: relative;
+  }
+
+  .doner-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--terracotta);
+    font-style: italic;
+    margin-bottom: 26px;
+    letter-spacing: 1px;
+  }
+
+  .doner-card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 18px rgba(200, 121, 74, 0.25);
+    position: relative;
+  }
+
+  .doner-medal {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+    color: var(--burgundy-deep);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 8px rgba(184, 137, 62, 0.4);
+  }
+
+  .doner-medal.silver {
+    background: linear-gradient(135deg, #D4D4D4 0%, #A0A0A0 100%);
+    color: #333;
+  }
+
+  .doner-medal.bronze {
+    background: linear-gradient(135deg, #CD7F32 0%, #8B5A2B 100%);
+    color: white;
+  }
+
+  .doner-name {
+    font-size: 20px;
+    color: var(--burgundy-deep);
+    margin: 14px 0 4px;
+    font-weight: normal;
+  }
+
+  .doner-meta {
+    font-size: 12px;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .doner-desc {
+    font-size: 14px;
+    color: var(--dark);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .doner-stars {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .stars {
+    color: var(--gold-deep);
+    letter-spacing: 1px;
+  }
+
+  .doner-vote {
+    margin-top: 22px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 18px 14px;
+    border-radius: 12px;
+    border: 2px dashed var(--terracotta);
+  }
+
+  .doner-vote-q {
+    font-size: 15px;
+    color: var(--burgundy-deep);
+    margin-bottom: 14px;
+    font-weight: bold;
+  }
+
+  .vote-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .vote-btn {
+    background: white;
+    border: 2px solid var(--terracotta);
+    color: var(--burgundy-deep);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+  }
+
+  .vote-btn:active {
+    background: var(--terracotta);
+    color: white;
+    transform: scale(0.96);
+  }
+
+  .vote-btn.voted {
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--terracotta) 100%);
+    color: white;
+    border-color: var(--burgundy);
+  }
+
+  .vote-result {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--burgundy-deep);
+    font-style: italic;
+    min-height: 22px;
+    transition: opacity 0.3s;
+  }
+
+  /* ===== Closing ===== */
+  .closing {
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: var(--burgundy-deep);
+  }
+
+  .closing-heart {
+    font-size: 36px;
+    margin-bottom: 14px;
+    display: inline-block;
+    animation: heartbeat 2.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+  }
+
+  .closing-text {
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto 18px;
+  }
+
+  .closing-sig {
+    font-size: 14px;
+    color: var(--terracotta);
+    letter-spacing: 2px;
+    margin-top: 14px;
+  }
+
+  /* ===== Котенце пасхалка ===== */
+  .cat-easter {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    background: var(--paper);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+    z-index: 100;
+    transition: transform 0.2s;
+    user-select: none;
+  }
+
+  .cat-easter:active {
+    transform: scale(0.9);
+  }
+
+  .cat-message {
+    position: fixed;
+    bottom: 76px;
+    right: 18px;
+    background: var(--burgundy);
+    color: var(--paper);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    max-width: 220px;
+    box-shadow: 0 6px 20px rgba(74, 31, 37, 0.4);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(10px);
+    line-height: 1.5;
+  }
+
+  .cat-message.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .cat-message::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 14px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--burgundy);
+  }
+
+  /* ===== Reveal анимации ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Mobile tweaks ===== */
+  @media (max-width: 380px) {
+    .nav-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .nav-card { font-size: 13px; padding: 12px 8px; }
+    .crafts { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 600px) {
+    .nav-cards { grid-template-columns: repeat(4, 1fr); }
+    .crafts { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= HERO ============= -->
+<header class="hero">
+  <div class="hero-sky"></div>
+  <div class="container">
+    <div class="hero-eyebrow">Пътеводител · България</div>
+    <h1>Велико <em>Търново</em></h1>
+    <p class="hero-sub">Градът на трите хълма, на царе и поети, на калдъръмени улички, които помнят повече от шест века история. И на най-вкусния дюнер. Може би.</p>
+
+    <!-- SVG силует на крепостта -->
+    <svg class="fortress-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="hill-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#722F37" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#4A1F25" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="hill-grad-2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#8B3A42" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#5C2530" stop-opacity="0.9"/>
+        </linearGradient>
+        <linearGradient id="hill-grad-3" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#A04550" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#6B2A35" stop-opacity="0.8"/>
+        </linearGradient>
+      </defs>
+
+      <!-- слънце/луна -->
+      <circle cx="480" cy="50" r="30" fill="#D4A574" opacity="0.4"/>
+      <circle cx="480" cy="50" r="22" fill="#D4A574" opacity="0.6"/>
+
+      <!-- задни хълмове -->
+      <path d="M0,160 Q80,120 160,140 Q240,110 320,135 Q400,105 480,130 Q560,115 600,140 L600,200 L0,200 Z" fill="url(#hill-grad-3)"/>
+
+      <!-- среден хълм -->
+      <path d="M0,170 Q100,145 200,160 Q300,135 400,155 Q500,140 600,165 L600,200 L0,200 Z" fill="url(#hill-grad-2)"/>
+
+      <!-- преден хълм с крепост -->
+      <path d="M0,180 Q150,160 280,170 L280,140 L300,140 L300,120 L320,120 L320,140 L340,140 L340,135 L360,135 L360,150 L380,150 L380,165 Q480,160 600,175 L600,200 L0,200 Z" fill="url(#hill-grad)"/>
+
+      <!-- кулите -->
+      <rect x="280" y="125" width="6" height="20" fill="#4A1F25"/>
+      <rect x="296" y="105" width="8" height="40" fill="#4A1F25"/>
+      <polygon points="296,105 300,98 304,105" fill="#4A1F25"/>
+      <rect x="316" y="115" width="8" height="30" fill="#4A1F25"/>
+      <rect x="338" y="130" width="4" height="15" fill="#4A1F25"/>
+
+      <!-- бойниците -->
+      <path d="M280,140 L284,140 L284,144 L288,144 L288,140 L292,140 L292,144 L296,144 L296,140 L300,140 L300,138 L304,138 L304,140 L308,140 L308,144 L312,144 L312,140 L316,140 L316,138 L320,138 L320,140 L324,140 L324,144 L328,144 L328,140 L332,140 L332,144 L336,144 L336,140 L340,140 L340,142 Z" fill="#722F37"/>
+
+      <!-- знамено -->
+      <line x1="300" y1="98" x2="300" y2="92" stroke="#D4A574" stroke-width="1"/>
+      <path d="M300,92 L312,95 L300,100 Z" fill="#D4A574"/>
+
+      <!-- Янтра отдолу -->
+      <path d="M0,185 Q100,182 200,185 Q300,182 400,185 Q500,182 600,185 L600,200 L0,200 Z" fill="#4A5D3A" opacity="0.4"/>
+      <path d="M0,190 Q150,187 300,190 Q450,187 600,190 L600,200 L0,200 Z" fill="#4A5D3A" opacity="0.6"/>
+    </svg>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ============= БАНЕР ЗА АЛИСА ============= -->
+  <div class="alisa-banner reveal">
+    <div class="alisa-banner-eyebrow">★ За Алиса ★</div>
+    <div class="alisa-banner-text">Пътеводителче, направено със <strong>сърце</strong> · за да опознаеш още един чуден български град</div>
+  </div>
+
+  <!-- ============= НАВИГАЦИЯ ============= -->
+  <nav class="nav-cards reveal">
+    <a class="nav-card" href="#история"><span class="nav-icon">📜</span>История</a>
+    <a class="nav-card" href="#хълмове"><span class="nav-icon">⛰️</span>Хълмове</a>
+    <a class="nav-card" href="#забележителности"><span class="nav-icon">🏰</span>Места</a>
+    <a class="nav-card" href="#легенди"><span class="nav-icon">✨</span>Легенди</a>
+    <a class="nav-card" href="#чаршия"><span class="nav-icon">🎨</span>Чаршия</a>
+    <a class="nav-card" href="#практично"><span class="nav-icon">🗺️</span>Съвети</a>
+    <a class="nav-card" href="#дюнер"><span class="nav-icon">🌯</span>Дюнер!</a>
+    <a class="nav-card" href="#край"><span class="nav-icon">💛</span>Финал</a>
+  </nav>
+
+  <!-- ============= ИСТОРИЯ ============= -->
+  <section id="история" class="reveal">
+    <div class="section-label">Глава първа</div>
+    <h2>Кратка <em>история</em></h2>
+    <p>Велико Търново е сред най-старите градове в България — първите следи от обитаване по тези хълмове датират от <strong>третото хилядолетие пр.Хр.</strong> Тук тракийците са имали селище, римляните — крепост, византийците — пост на империята си. Но истинският му разцвет идва, когато става столица на едно от най-блестящите средновековни царства в Европа.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">VI хил. пр.Хр.</div>
+        <div class="tl-title">Първите хора</div>
+        <div class="tl-desc">Хълмът Трапезица е обитаван още от неолита. Старият град е дълбок като книга, на която трябва да обърнеш всяка страница.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1185 г.</div>
+        <div class="tl-title">Раждането на столица</div>
+        <div class="tl-desc">Братята Асен и Петър вдигат въстание срещу Византия. Скоро Търново е обявен за столица на Второто българско царство.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1230 г., 22 март</div>
+        <div class="tl-title">Битката при Клокотница</div>
+        <div class="tl-desc">Цар Иван Асен II разбива епирския деспот и превръща България в най-силната държава на Балканите. Този ден и днес е празник на Велико Търново.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">XIII–XIV в.</div>
+        <div class="tl-title">Третият Рим</div>
+        <div class="tl-desc">Търновград е духовен и културен център на православния свят. Тук работи Търновската книжовна школа, оттук тръгват ръкописи към цяла Европа.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1393 г.</div>
+        <div class="tl-title">Падането</div>
+        <div class="tl-desc">След тримесечна обсада Търново пада под османска власт. Легендата казва, че Патриарх Евтимий благославя гражданите за последен път от хълма Света гора.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1879 г.</div>
+        <div class="tl-title">Учредителното събрание</div>
+        <div class="tl-desc">Във Велико Търново се приема първата българска конституция — Търновската. Градът отново става сърце на нацията, ако не и нейна столица.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Днес</div>
+        <div class="tl-title">Жив музей</div>
+        <div class="tl-desc">Велико Търново е едновременно университетски град, туристическа жемчужина и място, където историята се чува в стъпките по калдъръма.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament"></div>
+
+  <!-- ============= ХЪЛМОВЕТЕ ============= -->
+  <section id="хълмове" class="reveal">
+    <div class="section-label">Глава втора</div>
+    <h2>Трите <em>хълма</em></h2>
+    <p>Велико Търново е построен върху три скалисти хълма, обвити от тесните меандри на река Янтра. Италиански вестник дори обявява града за <em>най-красивото място в света, построено на отвесни склонове</em>. Не е преувеличение — гледките разтапят сърцето.</p>
+
+    <div class="hills">
+      <div class="hill">
+        <h3><span class="hill-num">1</span> Царевец</h3>
+        <p>Хълмът-крепост, сърцето на средновековното царство. Тук са били царският дворец и Патриаршията. Днес това е архитектурно-музеен резерват, по чиито стени все още разказват камъните.</p>
+      </div>
+      <div class="hill">
+        <h3><span class="hill-num">2</span> Трапезица</h3>
+        <p>По-малкият брат на Царевец. Тук са живели болярите и са се намирали над двадесет църкви — днес археолозите все още откриват останки от великолепна стенопис.</p>
+      </div>
+      <div class="hill">
+        <h3><span class="hill-num">3</span> Света гора</h3>
+        <p>Хълмът на духовността. Тук се е намирала прочутата Търновска книжовна школа, тук Патриарх Евтимий прави своята езикова реформа. Място, което <em>мирише на пергамент и на молитва</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament"></div>
+
+  <!-- ============= ЗАБЕЛЕЖИТЕЛНОСТИ ============= -->
+  <section id="забележителности" class="reveal">
+    <div class="section-label">Глава трета</div>
+    <h2>Какво да <em>видиш</em></h2>
+
+    <div class="sights">
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#722F37"/>
+            <path d="M0,140 L0,90 L40,90 L40,75 L60,75 L60,60 L80,60 L80,50 L100,50 L100,40 L120,40 L120,30 L140,30 L140,20 L160,20 L160,30 L180,30 L180,40 L200,40 L200,50 L220,50 L220,60 L240,60 L240,75 L260,75 L260,90 L300,90 L300,140 Z" fill="#4A1F25"/>
+            <rect x="135" y="35" width="3" height="10" fill="#D4A574"/>
+            <path d="M138,35 L150,38 L138,42 Z" fill="#D4A574"/>
+            <circle cx="240" cy="35" r="18" fill="#D4A574" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Задължително</span>
+          <h3 class="sight-title">Крепостта Царевец</h3>
+          <p class="sight-desc">Най-емблематичното място в града. Влизаш през моста, изкачваш се по серпентината, и пред теб се разтваря целият Стар Търновград — Патриаршеската църква на върха, царският дворец, кулата „Балдуинова". От най-високата точка се вижда докъдето стига погледът.</p>
+          <div class="sight-tip"><strong>Съвет:</strong> Провери дали има спектакъл „Звук и светлина" — крепостта оживява в музика и цветни лъчи. Незабравимо.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#C8794A"/>
+            <rect x="40" y="40" width="50" height="80" fill="#722F37"/>
+            <rect x="100" y="30" width="50" height="90" fill="#8B3A42"/>
+            <rect x="160" y="35" width="50" height="85" fill="#722F37"/>
+            <rect x="220" y="45" width="40" height="75" fill="#8B3A42"/>
+            <polygon points="40,40 65,20 90,40" fill="#4A1F25"/>
+            <polygon points="100,30 125,12 150,30" fill="#4A1F25"/>
+            <polygon points="160,35 185,17 210,35" fill="#4A1F25"/>
+            <polygon points="220,45 240,28 260,45" fill="#4A1F25"/>
+            <rect x="58" y="70" width="14" height="20" fill="#D4A574"/>
+            <rect x="118" y="60" width="14" height="20" fill="#D4A574"/>
+            <rect x="178" y="65" width="14" height="20" fill="#D4A574"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Очарователно</span>
+          <h3 class="sight-title">Самоводската чаршия</h3>
+          <p class="sight-desc">Калдъръмена улица, изпъстрена със занаятчийски работилнички. Тук се правят медни съдове по същия начин, по който са се правели преди 150 години. Грънчари, дърворезбари, иконописци, художници. Магазинчета със ситни чудеса.</p>
+          <div class="sight-tip"><strong>Съвет:</strong> Не бързай. Влез във всяко дюкянче. Пий кафе на терасата на хан „Хаджи Николи" — една от най-красивите сгради на Възраждането.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#4A5D3A"/>
+            <path d="M0,100 Q75,80 150,90 Q225,75 300,95 L300,140 L0,140 Z" fill="#3A4A2D"/>
+            <ellipse cx="150" cy="105" rx="30" ry="6" fill="#2B1810" opacity="0.4"/>
+            <path d="M75,100 Q150,55 225,100" stroke="#D4A574" stroke-width="3" fill="none"/>
+            <path d="M75,100 Q150,55 225,100" stroke="#722F37" stroke-width="2" fill="none"/>
+            <line x1="80" y1="92" x2="80" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="100" y1="80" x2="100" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="125" y1="68" x2="125" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="150" y1="62" x2="150" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="175" y1="68" x2="175" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="200" y1="80" x2="200" y2="100" stroke="#722F37" stroke-width="2"/>
+            <line x1="220" y1="92" x2="220" y2="100" stroke="#722F37" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Романтично</span>
+          <h3 class="sight-title">Стамболовият мост</h3>
+          <p class="sight-desc">Мостът, който свързва центъра с хълма Света гора, е най-фотогеничното място за залез. Долу шуми Янтра, а в далечината — кубетата на средновековните църкви.</p>
+          <div class="sight-tip"><strong>Съвет:</strong> Иди привечер. Светлината тогава прави всичко в цвят на мед.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#2B1810"/>
+            <rect x="60" y="40" width="180" height="80" fill="#722F37"/>
+            <rect x="80" y="60" width="140" height="40" fill="#4A1F25"/>
+            <polygon points="60,40 150,15 240,40" fill="#8B3A42"/>
+            <rect x="145" y="20" width="10" height="100" fill="#D4A574"/>
+            <circle cx="150" cy="22" r="6" fill="#D4A574"/>
+            <path d="M150,28 L150,40 M145,34 L155,34" stroke="#722F37" stroke-width="1.5"/>
+            <text x="150" y="85" font-family="Georgia" font-size="20" fill="#D4A574" text-anchor="middle">XL</text>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Свято</span>
+          <h3 class="sight-title">Църквата „Св. 40 мъченици"</h3>
+          <p class="sight-desc">Построена от Иван Асен II в чест на победата при Клокотница. Тук са били гробовете на средновековните царе. Тук, на колоните, са изписани надписи, от които буквално чуваш гласа на 13-ти век. Едно от най-важните места в българската история.</p>
+          <div class="sight-tip"><strong>Любопитно:</strong> На колоните има надписи на самия цар Иван Асен II — едни от най-старите запазени български царски слова в камък.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#722F37"/>
+            <rect x="60" y="50" width="20" height="70" fill="#D4A574"/>
+            <rect x="100" y="40" width="20" height="80" fill="#D4A574"/>
+            <rect x="140" y="30" width="20" height="90" fill="#D4A574"/>
+            <rect x="180" y="40" width="20" height="80" fill="#D4A574"/>
+            <rect x="220" y="50" width="20" height="70" fill="#D4A574"/>
+            <circle cx="70" cy="42" r="8" fill="#D4A574"/>
+            <circle cx="110" cy="32" r="8" fill="#D4A574"/>
+            <circle cx="150" cy="22" r="8" fill="#D4A574"/>
+            <circle cx="190" cy="32" r="8" fill="#D4A574"/>
+            <circle cx="230" cy="42" r="8" fill="#D4A574"/>
+            <rect x="50" y="120" width="200" height="10" fill="#4A1F25"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Народно</span>
+          <h3 class="sight-title">Паметникът на Асеневци</h3>
+          <p class="sight-desc">Внушителна композиция от четирима български царе и един меч, забит в небето. От тук започва най-добрият изглед към квартал Асенова махала — старите къщи, накацали по скалите, изглеждат като кошер от дърво и камък.</p>
+          <div class="sight-tip"><strong>Съвет:</strong> Съчетай с разходка по улица „Гурко" — една от най-живописните улици в България.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#3A4A2D"/>
+            <path d="M0,140 Q75,90 150,110 Q225,85 300,105 L300,140 Z" fill="#4A5D3A"/>
+            <rect x="100" y="55" width="100" height="60" fill="#F5E6D3"/>
+            <polygon points="95,55 150,30 205,55" fill="#722F37"/>
+            <rect x="120" y="75" width="20" height="40" fill="#722F37"/>
+            <rect x="160" y="75" width="20" height="40" fill="#722F37"/>
+            <rect x="140" y="100" width="20" height="15" fill="#4A1F25"/>
+            <circle cx="150" cy="40" r="3" fill="#D4A574"/>
+            <line x1="150" y1="32" x2="150" y2="48" stroke="#D4A574" stroke-width="1"/>
+            <line x1="142" y1="40" x2="158" y2="40" stroke="#D4A574" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Наблизо</span>
+          <h3 class="sight-title">Арбанаси</h3>
+          <p class="sight-desc">На само 4 км от центъра — село-резерват, където времето е спряло през XVII век. Тежки каменни къщи с потайни дворове, църкви със стенописи отвсякъде, гледка към цялото Велико Търново като към картичка.</p>
+          <div class="sight-tip"><strong>Не пропускай:</strong> Църквата „Рождество Христово" — стенописите вътре са истинско съкровище.</div>
+        </div>
+      </article>
+
+      <article class="sight">
+        <div class="sight-img">
+          <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="140" fill="#4A5D3A"/>
+            <rect x="0" y="80" width="300" height="60" fill="#3A4A2D"/>
+            <path d="M120,40 Q140,30 160,40 Q175,32 190,42 Q200,36 210,44 L210,80 L120,80 Z" fill="#F5E6D3"/>
+            <polygon points="115,42 165,18 215,42" fill="#722F37"/>
+            <rect x="155" y="50" width="20" height="30" fill="#722F37"/>
+            <line x1="165" y1="22" x2="165" y2="14" stroke="#D4A574" stroke-width="1"/>
+            <line x1="161" y1="18" x2="169" y2="18" stroke="#D4A574" stroke-width="1"/>
+            <path d="M0,100 Q150,90 300,100" stroke="#722F37" stroke-width="1" fill="none" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="sight-content">
+          <span class="sight-tag">★ Духовно</span>
+          <h3 class="sight-title">Преображенски манастир</h3>
+          <p class="sight-desc">Седнал в полите на стръмна скала, само на около 7 км от града. Един от най-красивите манастири в България — основан през XIV век, реставриран през Възраждането от майстор Колю Фичето. Стенописите на Захарий Зограф са приказка.</p>
+          <div class="sight-tip"><strong>Не пропускай:</strong> Стенописа „Колелото на живота" на външната стена — символ, около който си струва да помълчиш няколко минути.</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="ornament"></div>
+
+  <!-- ============= ЛЕГЕНДИ ============= -->
+  <section id="легенди" class="reveal">
+    <div class="section-label">Глава четвърта</div>
+    <h2>Тайни и <em>легенди</em></h2>
+
+    <div class="legend">
+      <h3>Балдуиновата кула</h3>
+      <p>Когато латинският император Балдуин Фландърски пада в плен на цар Калоян, го затварят в кулата на Царевец. Никой не знае точно какво е станало с него — според легендата, царица Анна Мария се влюбва в красивия пленник, а ревнивият Калоян ги избива и двамата. И досега, твърдят местните, нощем се чуват стъпки по стените на кулата.</p>
+    </div>
+
+    <div class="legend">
+      <h3>Камъкът на проклятието</h3>
+      <p>На Царевец има скала, която наричат „Лобна". Според преданието оттам са хвърляли осъдените на смърт. Казват, че който стъпи на нея с лоши помисли, ще бъде преследван от съдбата си. Който я докосне с чисто сърце — ще получи прошка за стара болка.</p>
+    </div>
+
+    <div class="legend">
+      <h3>Книгата на Патриарх Евтимий</h3>
+      <p>Когато Търново пада през 1393 г., Патриарх Евтимий благославя гражданите от хълма Света гора и — според легендата — заравя най-светия ръкопис под един камък. Векове наред търсят тази книга. Никой не я е намирал. Може би защото не камъкът е важен — а словото, което е оставил.</p>
+    </div>
+
+    <div class="legend">
+      <h3>Защо Янтра тече така странно?</h3>
+      <p>Реката прави около хълмовете шест меандъра — почти пълни кръгове. Народът разказва, че самата вода е била омагьосана: не е искала да напусне този град, толкова много го е обичала.</p>
+    </div>
+  </section>
+
+  <div class="ornament"></div>
+
+  <!-- ============= ЧАРШИЯ ============= -->
+  <section id="чаршия" class="reveal">
+    <div class="section-label">Глава пета</div>
+    <h2>Какво да <em>търсиш</em> на чаршията</h2>
+    <p>Самоводската чаршия е като машина на времето с касов апарат. Ето какво заслужава внимание — и евентуално място в куфара ти:</p>
+
+    <div class="crafts">
+      <div class="craft"><div class="craft-icon">🏺</div><div class="craft-name">Грънчарство</div></div>
+      <div class="craft"><div class="craft-icon">🪙</div><div class="craft-name">Медни съдове</div></div>
+      <div class="craft"><div class="craft-icon">🎨</div><div class="craft-name">Иконопис</div></div>
+      <div class="craft"><div class="craft-icon">✂️</div><div class="craft-name">Дърворезба</div></div>
+      <div class="craft"><div class="craft-icon">🧶</div><div class="craft-name">Везба и тъкан</div></div>
+      <div class="craft"><div class="craft-icon">📿</div><div class="craft-name">Сребро</div></div>
+      <div class="craft"><div class="craft-icon">🌹</div><div class="craft-name">Розово масло</div></div>
+      <div class="craft"><div class="craft-icon">🍯</div><div class="craft-name">Локум и мед</div></div>
+    </div>
+
+    <p style="font-size:14px; font-style:italic; color: var(--burgundy); text-align:center; margin-top:14px;">Малък съвет: купи си нещо мъничко и ръчно — то носи онази топлина, която фабричните неща нямат.</p>
+  </section>
+
+  <div class="ornament"></div>
+
+  <!-- ============= ПРАКТИЧНО ============= -->
+  <section id="практично" class="reveal">
+    <div class="section-label">Глава шеста</div>
+    <h2>Практични <em>дреболии</em></h2>
+
+    <div class="tips">
+      <div class="tips-title">🗺️ Кога да отидеш</div>
+      <ul>
+        <li>Май–юни и септември–октомври са най-приятни — топло, но не задушно.</li>
+        <li>22 март е празникът на града — има шествия, музика, светлинно шоу. Магия.</li>
+        <li>Лятото вечерно време е чудесно — денем е горещо, но залезът над Янтра си струва всичко.</li>
+      </ul>
+    </div>
+
+    <div class="tips">
+      <div class="tips-title">🚶 Как да се придвижваш</div>
+      <ul>
+        <li>Старият град е изцяло пешеходен — и стръмен. Удобни обувки, моля.</li>
+        <li>Между крепостта Царевец и центъра е около 15 минути пеша по калдъръм.</li>
+        <li>Такситата са евтини, но за гледките — върви пеша.</li>
+      </ul>
+    </div>
+
+    <div class="tips">
+      <div class="tips-title">📷 Най-добрите гледки</div>
+      <ul>
+        <li>От паметника на Асеневци към Асенова махала — открива ти се целият стар Търновград.</li>
+        <li>От Стамболовия мост на залез — тук светлината е магия.</li>
+        <li>От върха на Царевец — 360 градуса история.</li>
+        <li>От село Арбанаси, когато слънцето залязва — градът отсреща пламва.</li>
+      </ul>
+    </div>
+
+    <div class="tips">
+      <div class="tips-title">🍷 Какво да опиташ</div>
+      <ul>
+        <li>Шопска салата — задължително.</li>
+        <li>Кюфтета и кебапчета по търновски — на скара, сочни, ароматни.</li>
+        <li>Баница, прясна, от някой малък магазин сутрин рано.</li>
+        <li>Мекици с локум — ако намериш, поръчай две.</li>
+        <li>И, разбира се, дюнер. За това — отделна глава ↓</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============= ДЮНЕР СЕКЦИЯ ============= -->
+<section id="дюнер" class="doner-section reveal">
+  <div class="container">
+    <div class="section-label">Глава седма · специална</div>
+    <h2 class="doner-title">🌯 Битката на <em>дюнерите</em> 🌯</h2>
+    <p class="doner-subtitle">Кой прави най-вкусния дюнер във Велико Търново?</p>
+
+    <p style="text-align:center; font-size:14.5px; margin-bottom: 24px; max-width: 460px; margin-left:auto; margin-right:auto; color: var(--burgundy-deep);">Това е въпрос, на който не може да се отговори без личен експеримент. Но ето тримата претенденти, които местните най-често споменават. Препоръчвам ти да опиташ и трите — само в името на науката, разбира се.</p>
+
+    <article class="doner-card">
+      <span class="doner-medal">★ № 1 · Шампионът</span>
+      <h3 class="doner-name">Doner & Gyros</h3>
+      <div class="doner-meta">📍 центъра · бърза храна · #1 на Tripadvisor</div>
+      <p class="doner-desc">Класиран на първо място сред 46-те заведения за бърза храна във Велико Търново според Tripadvisor. Меко месо, прясна питка, тлъсти порции. Местни и туристи се ругат за опашката, но никой не се отказва. Това е дюнерът, за който се връщаш.</p>
+      <div class="doner-stars"><span class="stars">★★★★★</span> <span style="font-size:13px; color:var(--terracotta);">по мнение на масите</span></div>
+    </article>
+
+    <article class="doner-card">
+      <span class="doner-medal silver">★ № 2 · Сребро</span>
+      <h3 class="doner-name">Kebab House</h3>
+      <div class="doner-meta">📍 близо до центъра · обичан от местните</div>
+      <p class="doner-desc">Малко заведение, което скромно се хвали с „най-добрия дюнер във Велико Търново". Местните го защитават с религиозен плам. Сосовете са домашни, питата — препечена точно колкото трябва. Атмосфера: приветлив хаос.</p>
+      <div class="doner-stars"><span class="stars">★★★★☆</span> <span style="font-size:13px; color:var(--terracotta);">локален фаворит</span></div>
+    </article>
+
+    <article class="doner-card">
+      <span class="doner-medal bronze">★ № 3 · Бронз</span>
+      <h3 class="doner-name">Дюнер „При Братята"</h3>
+      <div class="doner-meta">📍 квартален · сърдечен</div>
+      <p class="doner-desc">От онези места, където те питат „с люто или без?" с такава топлина, че започваш да си мислиш дали нямат нещо общо със семейството ти. Дюнер с характер. Малко хаотично, но именно затова приятно.</p>
+      <div class="doner-stars"><span class="stars">★★★★☆</span> <span style="font-size:13px; color:var(--terracotta);">домашна атмосфера</span></div>
+    </article>
+
+    <div class="doner-vote">
+      <div class="doner-vote-q">След като опиташ — кой беше любимецът? 🗳️</div>
+      <div class="vote-btns">
+        <button class="vote-btn" data-vote="1">Doner & Gyros (шампионът)</button>
+        <button class="vote-btn" data-vote="2">Kebab House (сребърният)</button>
+        <button class="vote-btn" data-vote="3">При Братята (квартален)</button>
+        <button class="vote-btn" data-vote="4">Намерих по-добър! 🏆</button>
+      </div>
+      <div class="vote-result" id="voteResult"></div>
+    </div>
+
+    <p style="text-align:center; font-size:13px; font-style:italic; color: var(--burgundy-deep); margin-top: 22px; opacity: 0.8;">P.S. Истинският дюнер винаги ти изтича по пръстите. Ако не — значи нещо им липсва.</p>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- ============= ФИНАЛ ============= -->
+  <section id="край" class="closing reveal">
+    <div class="ornament"></div>
+    <div class="closing-heart">💛</div>
+    <div class="closing-text">
+      Велико Търново е град, който ще те научи на нещо за времето: че то не върви само напред, а понякога стои и те чака. На крепостта, на моста, в малкото магазинче за грънци, в чаша кафе на Самоводската чаршия. Иди го видиш — а после ми разкажи как е било.
+    </div>
+    <div class="closing-sig">★ С много обич, от Ал ★</div>
+  </section>
+
+</div>
+
+<!-- ============= КОТЕНЦЕ-ИЗНЕНАДА ============= -->
+<div class="cat-easter" id="catBtn" title="мяу">🐱</div>
+<div class="cat-message" id="catMsg">
+  <strong>Мяу!</strong> Алисче, ти си най-приказната. Велико Търново е красиво, но никой град не е по-красив от това да мисля за теб. 💛
+</div>
+
+<script>
+  // Reveal анимации при скрол
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Гласуване за дюнера
+  const voteResult = document.getElementById('voteResult');
+  const voteMessages = {
+    '1': '🏆 Класиката никога не подвежда!',
+    '2': '⚔️ Истински локален вкус.',
+    '3': '🏠 Най-сладкото — там, където те питат за люто.',
+    '4': '🌟 Браво! Сега ми кажи името, за да го допиша.'
+  };
+  document.querySelectorAll('.vote-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('voted'));
+      btn.classList.add('voted');
+      voteResult.textContent = voteMessages[btn.dataset.vote] || '';
+    });
+  });
+
+  // Котенцето-изненада
+  const catBtn = document.getElementById('catBtn');
+  const catMsg = document.getElementById('catMsg');
+  let catTimeout;
+  catBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    catMsg.classList.toggle('show');
+    clearTimeout(catTimeout);
+    if (catMsg.classList.contains('show')) {
+      catTimeout = setTimeout(() => catMsg.classList.remove('show'), 6000);
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!catMsg.contains(e.target) && e.target !== catBtn) {
+      catMsg.classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>
